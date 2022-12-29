@@ -1,0 +1,32 @@
+pip install missingno
+
+import pandas as pd
+import missingno as msno
+df=pd.read_csv("C:/Users/user/Downloads/archive/train.csv")
+df
+
+df.info()
+
+import missingno as msno
+msno.bar(df)
+msno.matrix(df)
+
+df.dropna(inplace=True)
+df.isnull().sum()
+
+del df['Name']
+del df['Sex']
+df.head(10)
+
+print("count of null values before imputation\n ")
+print(df.isnull().sum())
+
+print("count if null values after impuatioj\n")
+df['Ticket']=df['Ticket'].fillna(df['Ticket'].mode()[0])
+df['Fare']=df['Fare'].fillna(df['Fare'].mode()[0])
+print(df.isnull().sum())
+
+df.head().isna()
+
+df['Sex'].fillna(method='ffill',limit=1,inplace=True)
+df['Parch'].fillna(method='bfill',inplace=True)
